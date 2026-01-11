@@ -2,6 +2,7 @@ import logging
 import sqlite3
 from datetime import datetime
 import os
+from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
@@ -295,6 +296,15 @@ def graph_period_kb():
 API_TOKEN = os.getenv("API_TOKEN")
 GROUP_ID = int(os.getenv("GROUP_ID"))
 ALLOWED_USERS = set(map(int, os.getenv("ALLOWED_USERS").split(",")))
+
+if not API_TOKEN:
+    raise RuntimeError("API_TOKEN is not set")
+
+if not GROUP_ID:
+    raise RuntimeError("GROUP_ID is not set")
+
+if not ALLOWED_USERS:
+    raise RuntimeError("ALLOWED_USERS is not set")
 
 logging.basicConfig(level=logging.INFO)
 
